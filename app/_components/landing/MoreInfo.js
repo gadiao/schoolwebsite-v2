@@ -28,7 +28,7 @@ const MoreInfo = () => {
               Stay Informed
             </Typography>
             <Typography>
-              Get Updates on CFESchool's latest events and news to stay informed
+              Get Updates on latest events and news to stay informed
               about our community and our mission.
             </Typography>
           </CardContent>
