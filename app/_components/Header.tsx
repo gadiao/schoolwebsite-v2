@@ -27,7 +27,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import logocaption from "_helpers/client/img/logocaption.jpg";
 import { DialogLogin } from "./DialogLogin";
+import { useForm, Controller } from "react-hook-form";
+import { useUserService } from '_services';
+import { InputTextField } from '_helpers/client';
 
+// sections for each page in website except Account
 const sections = [
   { title: "HOME", url: "/" },
   { title: "Our School", url: "/ourschool" },
@@ -39,16 +43,29 @@ const sections = [
 ];
 
 const TopBar = () => {
+  // open State for handling Drawer
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // activeIndex for handling DialogLogin starting with close until click
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const handleCloseDialog = () => setActiveIndex(-1);
 
+  // login for checking if user is pressed signin but not actually logged in
   const [login, setLogin] = React.useState(false); 
   const handleLogin = () => setLogin(true);
   const handleLogout = () => setLogin(false);
+
+  const userService = useUserService();
+
+  // get functions to build form with useForm() hook
+  const { handleSubmit, formState, control } = useForm();
+  const { errors } = formState;
+
+  async function onSubmit({ username, password }: any) {
+      await userService.login(username, password);
+  }
 
   // NavList for Drawer
   const NavList = () => {
@@ -60,15 +77,18 @@ const TopBar = () => {
         }}
         sx={{ px: 1, flexShrink: 0 }}
       >
+        {/* Login/Account button in NavList for Mobile*/}
         <List>
           <ListItem>
             {login ? (
+              // redirect to Profile page
               <MUILink href="/account" component={NextLink}>
                 <IconButton sx={{ display: { xs: "flex", md: "none" } }}>
                   <AccountCircle />
                 </IconButton>
               </MUILink>
             ) : (
+              // toggles DialogLogin on activeIndex == 0 for Signin Dialog
               <Button
                 onClick={() => setActiveIndex(0)}
                 startIcon={<AccountCircle />}
@@ -132,14 +152,16 @@ const TopBar = () => {
           />
         </MUILink>
       </Paper>
-      {/*====================LOGIN====================*/}
+      {/* Login/Account on Desktop site */}
       {login ? (
+        // redirect to Profile page
         <MUILink href="/account" component={NextLink}>
           <IconButton sx={{ display: { xs: "none", md: "flex" } }}>
             <AccountCircle />
           </IconButton>
         </MUILink>
       ) : (
+        // toggles DialogLogin on activeIndex == 0 for Signin Dialog
         <Button
           onClick={() => setActiveIndex(0)}
           startIcon={<AccountCircle />}
@@ -156,24 +178,39 @@ const TopBar = () => {
       >
         <MenuIcon sx={{ fontSize: 35 }} />
       </IconButton>
+      {/* NavList inserted into Drawer */}
       <Drawer anchor="right" open={open} onClose={handleClose}>
         <NavList />
       </Drawer>
+      {/* SignIn Dialog for activeIndex === 0 */}
       <DialogLogin
         title="Sign In"
         isActive={activeIndex === 0}
         onClose={handleCloseDialog}
       >
         {activeIndex === 0 ? (
-          <Box component="form" noValidate sx={{ mt: 3 }}>
-            <TextField
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 3 }}>
+            <InputTextField control={control} name='username'/>
+            <InputTextField control={control} name='password'/>
+            <Controller
+              name='remember'
+              control={control}
+              defaultValue={false}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={<Checkbox {...field} color="primary" />}
+                  label="Remember me"
+                />
+              )}
+            />
+            {/* <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -189,8 +226,9 @@ const TopBar = () => {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
+              disabled={formState.isSubmitting}
               type="submit"
               fullWidth
               variant="contained"
@@ -220,6 +258,7 @@ const TopBar = () => {
           <Typography>Error</Typography>
         )}
       </DialogLogin>
+      {/* ForgotPassword Dialog for activeIndex === 1 */}
       <DialogLogin
         title="Forgot Password"
         isActive={activeIndex === 1}
@@ -260,6 +299,7 @@ const TopBar = () => {
           <Typography>Error</Typography>
         )}
       </DialogLogin>
+      {/* SignUp Dialog for activeIndex === 2 */}
       {/* <DialogLogin title="Sign Up" isActive={activeIndex === 2} onClose={handleCloseDialog}>
         {(activeIndex === 2) ? (
           <Box component="form" noValidate sx={{ mt: 3 }}>
