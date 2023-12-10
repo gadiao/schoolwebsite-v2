@@ -234,7 +234,6 @@ const TopBar = () => {
               variant="contained"
               onClick={e => {
                 e.preventDefault();
-                handleLogin();
                 handleCloseDialog();
               }}
               sx={{ mt: 3, mb: 2 }}
