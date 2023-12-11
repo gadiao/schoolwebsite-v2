@@ -188,74 +188,37 @@ const TopBar = () => {
         isActive={activeIndex === 0}
         onClose={handleCloseDialog}
       >
-        {activeIndex === 0 ? (
-          <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 3 }}>
-            <InputTextField control={control} name='username'/>
-            <InputTextField control={control} name='password'/>
-            <Controller
-              name='remember'
-              control={control}
-              defaultValue={false}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={<Checkbox {...field} color="primary" />}
-                  label="Remember me"
-                />
-              )}
-            />
-            {/* <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
-            <Button
-              disabled={formState.isSubmitting}
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={e => {
-                e.preventDefault();
-                handleCloseDialog();
-              }}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Button variant="text" onClick={() => setActiveIndex(1)}>
-                  Forgot Password
-                </Button>
-              </Grid>
-              {/* <Grid item>
-                <Button variant="text" onClick={() => setActiveIndex(2)}>
-                  Sign Up
-                </Button>
-              </Grid> */}
-            </Grid>
-          </Box>
-        ) : (
-          <Typography>Error</Typography>
-        )}
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+          <InputTextField control={control} name='username'/>
+          <InputTextField control={control} name='password'/>
+          <Controller
+            name='remember'
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel
+                control={<Checkbox {...field} color="primary" />}
+                label="Remember me"
+              />
+            )}
+          />
+          <Button
+            disabled={formState.isSubmitting}
+            type="submit"
+            fullWidth
+            variant="contained"
+            onClick={e => {
+              e.preventDefault();
+              handleCloseDialog();
+            }}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+          <Button variant="text" onClick={() => setActiveIndex(1)}>
+            Forgot Password
+          </Button>
+        </Box>
       </DialogLogin>
       {/* ForgotPassword Dialog for activeIndex === 1 */}
       <DialogLogin
@@ -263,116 +226,37 @@ const TopBar = () => {
         isActive={activeIndex === 1}
         onClose={handleCloseDialog}
       >
-        {activeIndex === 1 ? (
-          <Box component="form" noValidate sx={{ mt: 3 }}>
-            <Typography>
-              Lost your password? Please your email address. You will receive a
-              link to create a new password via email.
-            </Typography>
-            <TextField
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={() => setActiveIndex(0)}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Forgot Password
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Button variant="text" onClick={() => setActiveIndex(0)}>
-                  Already have an account? Sign in
-                </Button>
-              </Grid>
+        <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Typography>
+            Lost your password? Please your email address. You will receive a
+            link to create a new password via email.
+          </Typography>
+          <TextField
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            onClick={() => setActiveIndex(0)}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Forgot Password
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Button variant="text" onClick={() => setActiveIndex(0)}>
+                Already have an account? Sign in
+              </Button>
             </Grid>
-          </Box>
-        ) : (
-          <Typography>Error</Typography>
-        )}
+          </Grid>
+        </Box>
       </DialogLogin>
-      {/* SignUp Dialog for activeIndex === 2 */}
-      {/* <DialogLogin title="Sign Up" isActive={activeIndex === 2} onClose={handleCloseDialog}>
-        {(activeIndex === 2) ? (
-          <Box component="form" noValidate sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive updates via email."
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={() => setActiveIndex(0)}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Button variant="text" onClick={() => setActiveIndex(0)}>
-                  Already have an account? Sign in
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        ) : (
-          <Typography>Error</Typography>
-        )}
-      </DialogLogin> */}
     </Toolbar>
   );
 };
