@@ -40,7 +40,7 @@ function useUserService(): IUserService {
         },
         logout: async () => {
             await fetch.post('/api/account/logout');
-            router.push('/account/login');
+            router.push('/');
         },
         register: async (user) => {
             try {

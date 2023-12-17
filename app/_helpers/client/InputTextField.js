@@ -15,10 +15,11 @@ const InputTextField = ({ control, name }) => {
   });
 
   const nameLabel = field.name.charAt(0).toUpperCase() + field.name.slice(1);
-
+  
   return (
     <TextField 
       margin="normal"
+      hidden
       fullWidth
       autoFocus
       label={nameLabel}

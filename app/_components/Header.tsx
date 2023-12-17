@@ -42,7 +42,7 @@ const sections = [
   { title: "Contact", url: "/contact" },
 ];
 
-const TopBar = () => {
+const TopBar = ({ loggedin }: { loggedin: Boolean }) => {
   // open State for handling Drawer
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -53,9 +53,8 @@ const TopBar = () => {
   const handleCloseDialog = () => setActiveIndex(-1);
 
   // login for checking if user is pressed signin but not actually logged in
-  const [login, setLogin] = React.useState(false); 
-  const handleLogin = () => setLogin(true);
-  const handleLogout = () => setLogin(false);
+  const [login, setLogin] = React.useState(loggedin); 
+  const [loggingOut, setLoggingOut] = React.useState(false);
 
   const userService = useUserService();
 
@@ -64,9 +63,14 @@ const TopBar = () => {
   const { errors } = formState;
 
   async function onSubmit({ username, password }: any) {
-      await userService.login(username, password);
-  }
+    await userService.login(username, password);
+  };
 
+  async function logout() {
+    setLoggingOut(true);
+    await userService.logout();
+  }
+  
   // NavList for Drawer
   const NavList = () => {
     return (
@@ -120,7 +124,7 @@ const TopBar = () => {
         </List>
       </Box>
     );
-  };
+  }; 
 
   return (
     <Toolbar
@@ -155,7 +159,7 @@ const TopBar = () => {
       {/* Login/Account on Desktop site */}
       {login ? (
         // redirect to Profile page
-        <MUILink href="/account" component={NextLink}>
+        <MUILink href="/" component={NextLink} onClick={logout}>
           <IconButton sx={{ display: { xs: "none", md: "flex" } }}>
             <AccountCircle />
           </IconButton>
@@ -263,10 +267,10 @@ const TopBar = () => {
 
 export { Header };
 
-const Header = () => {
+const Header = ({ loggedin }: { loggedin: Boolean }) => {
   return (
     <AppBar position="relative" sx={{ zIndex: "drawer" }}>
-      <TopBar />
+      <TopBar loggedin={loggedin}/>
       <Toolbar
         component="nav"
         variant="dense"
