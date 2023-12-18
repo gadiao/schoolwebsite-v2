@@ -193,8 +193,8 @@ const TopBar = ({ loggedin }: { loggedin: Boolean }) => {
         onClose={handleCloseDialog}
       >
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
-          <InputTextField control={control} name='username'/>
-          <InputTextField control={control} name='password'/>
+          <InputTextField control={control} name="username"/>
+          <InputTextField control={control} name="password"/>
           <Controller
             name='remember'
             control={control}

@@ -23,7 +23,7 @@ const InputTextField = ({ control, name }) => {
       fullWidth
       autoFocus
       label={nameLabel}
-      autoComplete={field.name}
+      type={field.name}
       onChange={field.onChange} // send value to hook form 
       onBlur={field.onBlur} // notify when input is touched/blur
       value={field.value} // input value
