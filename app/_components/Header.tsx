@@ -26,6 +26,7 @@ import Image from "next/image";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import logocaption from "_helpers/client/img/logocaption.jpg";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { DialogLogin } from "./DialogLogin";
 import { useForm, Controller } from "react-hook-form";
 import { useUserService } from '_services';
@@ -86,7 +87,7 @@ const TopBar = ({ loggedin }: { loggedin: Boolean }) => {
           <ListItem>
             {login ? (
               // redirect to Profile page
-              <MUILink href="/account" component={NextLink}>
+              <MUILink href="/" component={NextLink} onClick={logout}>
                 <IconButton sx={{ display: { xs: "flex", md: "none" } }}>
                   <AccountCircle />
                 </IconButton>
@@ -206,19 +207,15 @@ const TopBar = ({ loggedin }: { loggedin: Boolean }) => {
               />
             )}
           />
-          <Button
-            disabled={formState.isSubmitting}
+          <LoadingButton
+            loading={formState.isSubmitting}
             type="submit"
             fullWidth
             variant="contained"
-            onClick={e => {
-              e.preventDefault();
-              handleCloseDialog();
-            }}
             sx={{ mt: 3, mb: 2 }}
           >
             Sign In
-          </Button>
+          </LoadingButton>
           <Button variant="text" onClick={() => setActiveIndex(1)}>
             Forgot Password
           </Button>
