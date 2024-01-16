@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AppBar, Divider } from "@mui/material";
-import { TopBar } from "./TopBar";
+import { TopBar } from "./topbar";
 import { BottomBar } from "./BottomBar";
 
 // sections for each page in website except Account
