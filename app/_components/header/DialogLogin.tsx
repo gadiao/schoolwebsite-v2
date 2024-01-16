@@ -1,12 +1,10 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import { Avatar, Box, Container, Dialog, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 export { DialogLogin };
 
-const DialogLogin = (props) => {
-  const { children, title, isActive, onClose } = props;
+const DialogLogin = ({ children, title, isActive, onClose }: login) => {
   // const handleSubmit = (event) => {
   //   event.preventDefault();
   //   const data = new FormData(event.currentTarget);
@@ -15,7 +13,7 @@ const DialogLogin = (props) => {
   //     password: data.get('password'),
   //   });
   // };
-  
+
   return (
     <Dialog
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -45,10 +43,9 @@ const DialogLogin = (props) => {
   );
 };
 
-DialogLogin.propTypes = {
-  children: PropTypes.any,
-  title: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
-};
-
+interface login {
+  children: any,
+  title: string,
+  isActive: boolean,
+  onClose: () => void
+}
