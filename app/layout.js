@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Header, Footer } from '_components';
+import { Footer } from '_components';
+import { Header } from '_components/header'
 import { ThemeRegistry } from '_helpers/client/themeregistry';
 
 import { auth } from '_helpers/server';

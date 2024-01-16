@@ -1,7 +1,3 @@
-export * from './Header';
+// This index file is called a barrel because it contains other components in it
 export * from './Footer';
 export * from './Hero';
-export * from './Alert';
-export * from './Nav';
-export * from './NavLink';
-export * from './Spinner';
