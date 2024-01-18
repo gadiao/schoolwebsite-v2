@@ -3,24 +3,13 @@ import { AppBar, Divider } from "@mui/material";
 import { TopBar } from "./topbar";
 import { BottomBar } from "./BottomBar";
 
-// sections for each page in website except Account
-const sections = [
-  { title: "HOME", url: "/" },
-  { title: "Our School", url: "/ourschool" },
-  { title: "Academics", url: "/academics" },
-  { title: "Admissions", url: "/admissions" },
-  { title: "Events", url: "/events" },
-  { title: "News", url: "/news" },
-  { title: "Contact", url: "/contact" },
-];
-
 export { Header };
 
-const Header = ({ loggedin }: { loggedin: Boolean }) => {
+const Header = ({ loggedin }: { loggedin: boolean }) => {
   return (
     <AppBar position="relative" sx={{ zIndex: "drawer" }}>
-      <TopBar loggedin={loggedin} navSections={sections} />
-      <BottomBar navSections={sections} />
+      <TopBar loggedin={loggedin} />
+      <BottomBar />
       <Divider
         sx={{
           display: { xs: "block", md: "none" },

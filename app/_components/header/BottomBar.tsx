@@ -7,11 +7,18 @@ import logocaption from "_helpers/client/img/logocaption.jpg";
 
 export { BottomBar };
 
-const BottomBar = ({
-  navSections,
-}: {
-  navSections: { title: string; url: string }[];
-}) => {
+// sections for each page in website except Account
+const sections = [
+  { title: "HOME", url: "/" },
+  { title: "Our School", url: "/ourschool" },
+  { title: "Academics", url: "/academics" },
+  { title: "Admissions", url: "/admissions" },
+  { title: "Events", url: "/events" },
+  { title: "News", url: "/news" },
+  { title: "Contact", url: "/contact" },
+];
+
+const BottomBar = () => {
   return (
     <Toolbar
       component="nav"
@@ -38,7 +45,7 @@ const BottomBar = ({
           />
         </MUILink>
       </Paper>
-      {navSections.slice(1).map((section) => (
+      {sections.slice(1).map((section) => (
         <MUILink
           key={section.title}
           variant="body1"
