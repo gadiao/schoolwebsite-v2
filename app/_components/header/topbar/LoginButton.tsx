@@ -78,6 +78,7 @@ const LoginButton = ({
           </Button>
         )}
       </Box>
+      {/* Might be a cause of issue as tree goes from Server (parent) -> Client -> Server (child) */}
       {/* SignIn Dialog for activeIndex === 0 */}
       <DialogLogin
         title="Sign In"
