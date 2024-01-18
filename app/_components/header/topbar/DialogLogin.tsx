@@ -44,7 +44,7 @@ const DialogLogin = ({ children, title, isActive, onClose }: login) => {
 };
 
 interface login {
-  children: any,
+  children: React.ReactNode,
   title: string,
   isActive: boolean,
   onClose: () => void
