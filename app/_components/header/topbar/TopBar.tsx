@@ -42,7 +42,9 @@ const TopBar = ({ loggedin }: { loggedin: boolean }) => {
       </Paper>
       {/* Login/Account on Desktop site */}
       <LoginButton loggedin={loggedin} isMobile={false}/>
-      <DrawerButton loggedin={loggedin} />
+      <DrawerButton>
+        <LoginButton loggedin={loggedin} isMobile={true}/>
+      </DrawerButton>
     </Toolbar>
   );
 };
