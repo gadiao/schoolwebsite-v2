@@ -7,9 +7,11 @@ import logocaption from "_helpers/client/img/logocaption.jpg";
 import { DrawerButton } from "./DrawerButton";
 import { LoginButton } from "./LoginButton";
 
+import { auth } from "_helpers/server";
+
 export { TopBar };
 
-const TopBar = ({ loggedin }: { loggedin: boolean }) => {
+const TopBar = () => {
   return (
     <Toolbar
       variant="dense"
@@ -41,9 +43,9 @@ const TopBar = ({ loggedin }: { loggedin: boolean }) => {
         </MUILink>
       </Paper>
       {/* Login/Account on Desktop site */}
-      <LoginButton loggedin={loggedin} isMobile={false}/>
+      <LoginButton isMobile={false} isLoggedin={auth.isAuthenticated()}/>
       <DrawerButton>
-        <LoginButton loggedin={loggedin} isMobile={true}/>
+        <LoginButton isMobile={true} isLoggedin={auth.isAuthenticated()}/>
       </DrawerButton>
     </Toolbar>
   );

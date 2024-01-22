@@ -1,14 +1,13 @@
-import * as React from "react";
 import { AppBar, Divider } from "@mui/material";
 import { TopBar } from "./topbar";
 import { BottomBar } from "./BottomBar";
 
 export { Header };
 
-const Header = ({ loggedin }: { loggedin: boolean }) => {
+const Header = () => {
   return (
     <AppBar position="relative" sx={{ zIndex: "drawer" }}>
-      <TopBar loggedin={loggedin} />
+      <TopBar />
       <BottomBar />
       <Divider
         sx={{

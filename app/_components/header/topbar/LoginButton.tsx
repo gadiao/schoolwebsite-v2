@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import NextLink from "next/link";
 import { Link as MUILink } from "@mui/material";
 import {
@@ -23,17 +23,17 @@ import { InputTextField } from "_helpers/client";
 export { LoginButton };
 
 const LoginButton = ({
-  loggedin,
   isMobile,
+  isLoggedin,
 }: {
-  loggedin: boolean;
   isMobile: boolean;
+  isLoggedin: boolean;
 }) => {
-  // login for checking if user is pressed signin but not actually logged in
-  const [login, setLogin] = React.useState(loggedin);
+  // login for checking if user pressed signin but not actually logged in
+  const [login, setLogin] = useState(isLoggedin);
 
   // activeIndex for handling DialogLogin starting with close until click
-  const [activeIndex, setActiveIndex] = React.useState(-1);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const handleCloseDialog = () => setActiveIndex(-1);
 
   const userService = useUserService();
@@ -46,14 +46,12 @@ const LoginButton = ({
     await userService.login(username, password);
   }
 
-  // logout duplicated to NavList child componenent with clicking profile pic
   async function logout() {
     await userService.logout();
   }
 
   return (
     <>
-      {/* Currently is not adjusted for display change  */}
       <Box
         sx={{
           display: isMobile
