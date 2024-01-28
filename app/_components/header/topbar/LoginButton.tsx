@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NextLink from "next/link";
 import { Link as MUILink } from "@mui/material";
 import {
@@ -22,60 +22,48 @@ import { InputTextField } from "_helpers/client";
 
 export { LoginButton };
 
-const LoginButton = ({
-  isMobile,
-  isLoggedin,
-}: {
-  isMobile: boolean;
-  isLoggedin: boolean;
-}) => {
+const LoginButton = ({ isLoggedin }: { isLoggedin: boolean }) => {
   // login for checking if user pressed signin but not actually logged in
-  const [login, setLogin] = useState(isLoggedin);
+  // const [login, setLogin] = useState(isLoggedin);
 
   // activeIndex for handling DialogLogin starting with close until click
   const [activeIndex, setActiveIndex] = useState(-1);
   const handleCloseDialog = () => setActiveIndex(-1);
 
+  // Rudimentary way of changing loggedin, handle again at backend
+  const [userLoggedin, setLoggedin] = useState(isLoggedin);
+  const handleLogin = () => setLoggedin(true);
+  const handleLogout = () => setLoggedin(false);
+
   const userService = useUserService();
 
   // get functions to build form with useForm() hook
   const { handleSubmit, formState, control } = useForm();
-  const { errors } = formState;
 
   async function onSubmit({ username, password }: any) {
     await userService.login(username, password);
+    handleLogin();
   }
-
   async function logout() {
     await userService.logout();
+    handleLogout();
   }
 
   return (
     <>
-      <Box
-        sx={{
-          display: isMobile
-            ? { xs: "flex", md: "none" }
-            : { xs: "none", md: "flex" },
-        }}
-      >
-        {login ? (
-          // redirect to Profile page
-          <MUILink href="/" component={NextLink} onClick={logout}>
-            <IconButton>
-              <AccountCircle />
-            </IconButton>
-          </MUILink>
-        ) : (
-          // toggles DialogLogin on activeIndex == 0 for Signin Dialog
-          <Button
-            onClick={() => setActiveIndex(0)}
-            startIcon={<AccountCircle />}
-          >
-            LOGIN
-          </Button>
-        )}
-      </Box>
+      {/* redirect to Profile page */}
+      {userLoggedin ? (
+        <MUILink href="/" component={NextLink} onClick={logout}>
+          <IconButton>
+            <AccountCircle />
+          </IconButton>
+        </MUILink>
+      ) : (
+        <Button onClick={() => setActiveIndex(0)} startIcon={<AccountCircle />}>
+          LOGIN
+        </Button>
+      )}
+      {/* toggles DialogLogin on activeIndex == 0 for Signin Dialog */}
       {/* Might be a cause of issue as tree goes from Server (parent) -> Client -> Server (child) */}
       {/* SignIn Dialog for activeIndex === 0 */}
       <DialogLogin
