@@ -32,15 +32,14 @@ function useUserService(): IUserService {
                 userStore.setState({ ...initialState, currentUser });
 
                 // get return url from query parameters or default to '/'
-                const returnUrl = searchParams.get('returnUrl') || '/';
-                router.push(returnUrl);
+                router.refresh();
             } catch (error: any) {
                 alertService.error(error);
             }
         },
         logout: async () => {
             await fetch.post('/api/account/logout');
-            router.push('/');
+            router.refresh();
         },
         register: async (user) => {
             try {
