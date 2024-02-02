@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from "react";
 import { Avatar, Box, Container, Dialog, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";

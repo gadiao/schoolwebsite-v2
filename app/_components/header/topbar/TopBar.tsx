@@ -1,10 +1,10 @@
 import * as React from "react";
 import NextLink from "next/link";
 import { Link as MUILink } from "@mui/material";
-import { Box, Paper, Toolbar } from "@mui/material";
+import { Paper, Toolbar } from "@mui/material";
 import Image from "next/image";
 import logocaption from "_helpers/client/img/logocaption.jpg";
-import { DrawerButton } from "./DrawerButton";
+import { LoginDrawer } from "./LoginDrawer";
 import { LoginButton } from "./LoginButton";
 
 import { auth } from '_helpers/server';
@@ -43,14 +43,9 @@ const TopBar = () => {
         </MUILink>
       </Paper>
       {/* Login/Account on Desktop site */}
-      <Box sx={{ display: { xs: "none", md: "flex" } }}>
+      <LoginDrawer>
         <LoginButton isLoggedin={auth.isAuthenticated()}/>
-      </Box>
-      <Box sx={{ display: { xs: "flex", md: "none" } }}>
-        <DrawerButton>
-          <LoginButton isLoggedin={auth.isAuthenticated()}/>
-        </DrawerButton>
-      </Box>
+      </LoginDrawer>
     </Toolbar>
   );
 };
