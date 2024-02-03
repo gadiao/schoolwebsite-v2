@@ -23,9 +23,6 @@ import { InputTextField } from "_helpers/client";
 export { LoginButton };
 
 const LoginButton = ({ isLoggedin }: { isLoggedin: boolean }) => {
-  // login for checking if user pressed signin but not actually logged in
-  // const [login, setLogin] = useState(isLoggedin);
-
   // activeIndex for handling DialogLogin starting with close until click
   const [activeIndex, setActiveIndex] = useState(-1);
   const handleCloseDialog = () => setActiveIndex(-1);
